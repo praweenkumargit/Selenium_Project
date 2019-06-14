@@ -14,20 +14,21 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.training.generics.ScreenShot;
-import com.training.pom.RTC002POM;
-import com.training.pom.Rtc004POM;
-import com.training.pom.Rtc005POM;
+import com.training.pom.Rtc003POM;
+import com.training.pom.Rttc31_invalidLoginPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class RTC005 {
-
+public class RTC31 {
 	private WebDriver driver;
 	private String baseUrl;
-	private RTC002POM rtc002POM;
-	private Rtc005POM rtc005POM;
+	private Rttc31_invalidLoginPOM rttc31POM;
 	private static Properties properties;
 	private ScreenShot screenShot;
+	
+	/*
+	To verify whether application denies user getting logged in upon entering invalid credentials in required field
+	*/
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws IOException {
@@ -39,43 +40,30 @@ public class RTC005 {
 	@BeforeMethod
 	public void setUp() throws Exception {
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
-		rtc002POM = new RTC002POM(driver);
-		rtc005POM = new Rtc005POM(driver);
+		rttc31POM = new Rttc31_invalidLoginPOM(driver); 
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver); 
 		// open the browser 
 		driver.get(baseUrl);
 		Thread.sleep(7000);
 		Actions act = new Actions(driver);
-		//act.moveToElement(driver.findElement(By.xpath("//*[@id=\"Menu_Wmt3OMY3\"]/nav/ul/li[2]/a/span/span/i"))).click().build().perform();
 		act.moveToElement(driver.findElement(By.xpath("//i[@class='fa fa-user-o']"))).click().build().perform();
 	}
-	
+
 	@AfterMethod
 	public void tearDown() throws Exception {
 		Thread.sleep(1000);
 		driver.quit();
 	}
-	@Test 
-	public void validAccountEditTest() throws InterruptedException {
-		rtc002POM.sendEmail("praween3@gmail.com");
-		rtc002POM.sendPassword("password1");
-		rtc002POM.clickLoginBtn();
-		//rtc002POM.assertion();
-		Thread.sleep(7000);
-		rtc005POM.clickEditAccountInfo();
-		rtc005POM.sendFirstName("praween1");
-		rtc005POM.sendLastName("Kumar1");
-		rtc005POM.sendEmail("prawkuma4@in.ibm.com");
-		rtc005POM.sendTelephone("9903305763");
-		rtc005POM.clickContinueButton();
-		Thread.sleep(7000);
-		String actual = rtc005POM.editAccountInfoSuccess();
-		String expected = "Success: Your account has been successfully updated.";
-		
+	@Test
+	public void validLoginTest() {
+		rttc31POM.sendEmail("praweenpappu@gmail.com");
+		rttc31POM.sendPassword("password11");
+		rttc31POM.clickLoginBtn();
+		String expected = "Warning: No match for E-Mail Address and/or Password.";
+		String actual = rttc31POM.assertion();
 		Assert.assertEquals(actual, expected);
-		System.out.println("Test Case Passed");
-			
 		
+		screenShot.captureScreenShot("First");
 	}
 }
