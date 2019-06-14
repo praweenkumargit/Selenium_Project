@@ -25,6 +25,10 @@ public class RTTC32 {
 	private Rttc32POM rttc32POM;
 	private static Properties properties;
 	private ScreenShot screenShot;
+	
+	/*
+	To verify whether application displays Login screen upon checking out the product without Pre Logging in
+	*/
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws IOException {

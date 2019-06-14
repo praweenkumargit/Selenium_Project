@@ -20,6 +20,11 @@ import com.training.pom.Rttc35POM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
+
+/*
+To verify whether application allows admin to add product with the rewards point
+*/ 
+
 public class RTTC35 {
 	private WebDriver driver;
 	private String baseUrl;
