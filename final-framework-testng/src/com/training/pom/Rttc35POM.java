@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -41,7 +42,7 @@ private WebDriver driver;
 	
 	@FindBy(xpath="//li/a/i[@class='fa fa-tags fw']")
 	private WebElement catalogBtn; 
-	@FindBy(linkText="Products")
+	@FindBy(xpath="//ul/li/a[contains(text(),'Products')]")
 	private WebElement productsBtn; 
 	public void clickProductsBtn() {
 		Actions act  = new Actions(driver);
@@ -104,16 +105,46 @@ private WebDriver driver;
 		this.linkTab.click();
 	}
 	
-	@FindBy(id="input-category")
+	@FindBy(xpath="//div/input[@id='input-category']")
 	private WebElement categories;
 	public void clickOnCategories() throws InterruptedException {
-		
-		this.categories.click();
+		Actions act = new Actions(driver);
+		act.moveToElement(categories).click().build().perform();
 		Thread.sleep(2000);
-		List<WebElement> options = categories.findElements(By.tagName("li"));
+		List<WebElement> options = categories.findElements(By.tagName("a"));
 		for (WebElement option : options)
 		{
 		    if (option.getText().equals("Ladies Ornaments"))
+			
+		        option.click(); 
+		    Thread.sleep(2000);
+		    }
+		}
+		
+		/*
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("arguments[0].click(); ", categories);
+		List<WebElement> options = categories.findElements(By.tagName("a"));
+		for (WebElement option : options)
+		{
+		    if (option.getText().equals("Ladies Ornaments"))
+		    	js.executeScript("arguments[0].click(); ", option);
+		        //option.click(); 
+		    Thread.sleep(2000);
+		    }
+		*/
+	
+	
+	@FindBy(xpath="//*[@id=\"header\"]/ul/li[4]/a/span")
+	private WebElement logout;
+	public void clickOnLogout() throws InterruptedException {
+		
+		//this.categories.click();
+		Thread.sleep(2000);
+		List<WebElement> options = logout.findElements(By.tagName("li"));
+		for (WebElement option : options)
+		{
+		    if (option.getText().equals("Logout"))
 		    {
 		        option.click(); 
 		        

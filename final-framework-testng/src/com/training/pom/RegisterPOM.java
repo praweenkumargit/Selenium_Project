@@ -63,9 +63,16 @@ private WebDriver driver;
 		this.firstName.sendKeys(firstName);
 	}
 	
+	public String getfirstName() {
+		return this.firstName.getAttribute("value");
+	}
+	
 	public void sendLastName(String lastName) {
 		this.lastName.clear();
 		this.lastName.sendKeys(lastName);
+	}
+	public String getlastName() {
+		return this.lastName.getAttribute("value");
 	}
 	
 	public void sendEmail(String email) {
@@ -73,9 +80,17 @@ private WebDriver driver;
 		this.email.sendKeys(email);
 	}
 	
+	public String getemail() {
+		return this.email.getAttribute("value");
+	}
+	
 	public void sendTelephone(String telePhone) {
 		this.telePhone.clear();
 		this.telePhone.sendKeys(telePhone);
+	}
+	
+	public String gettelePhone() {
+		return this.telePhone.getAttribute("value");
 	}
 	
 	public void sendAddress1(String address1) {
@@ -83,11 +98,19 @@ private WebDriver driver;
 		this.address1.sendKeys(address1);
 	}
 	
+	public String getaddress1() {
+		return this.address1.getAttribute("value");
+	}
+	
 	public void sendCity(String city) {
 		this.city.clear();
 		this.city.sendKeys(city);
 		
 		}
+	
+	public String getcity() {
+		return this.city.getAttribute("value");
+	}
 	
 	public void selectCountry() {
 		Select ctry = new Select(country);
@@ -106,9 +129,17 @@ private WebDriver driver;
 		this.password.sendKeys(password);
 	}
 	
+	public String getpassword() {
+		return this.password.getAttribute("value");
+	}
+	
 	public void sendConfirmPassword(String confirmPassword) {
 		this.confirmPassword.clear();
 		this.confirmPassword.sendKeys(confirmPassword);
+	}
+	
+	public String getconfirmPassword() {
+		return this.confirmPassword.getAttribute("value");
 	}
 	
 	public void checkAgree() {
@@ -131,6 +162,15 @@ private WebDriver driver;
 	public String assertRegistration() {
 	
 		String actual = registerSuccess.getText();
+		return actual;
+			
+	}
+	
+	@FindBy(xpath="//div/div[@class='alert alert-danger']")
+	private WebElement registerAlert;
+	public String assertRegistrationWarning() {
+		
+		String actual = this.registerAlert.getText();
 		return actual;
 			
 	}
